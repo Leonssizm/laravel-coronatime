@@ -7,6 +7,6 @@
         </div>
     </div>
     <div class="flex mt-6 ml-10 lg:ml-36">
-        <p class="font inter font-normal text-[#808189]">Already Have an account?</p> <a class="font-inter font-semibold" href="/">Log in</a>
+        <p class="font inter font-normal text-[#808189]">Already Have an account?</p> <a class="font-inter font-semibold" href="{{route('sign-in')}}">Log in</a>
     </div>
 </x-dashboard-layout>

@@ -1,4 +1,4 @@
-<x-landing.layout/>
+<x-landing.layout :user='$user'/>
 
 <div class="ml-5 mt-10 lg:ml-28 mt-14">
     <h1 class="font-inter text-2xl font-black">Worldwide Statistics</h1>

@@ -20,13 +20,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
 	Route::controller(SignUpController::class)->group(function () {
-		Route::get('sign-up', 'index')->name('sign-up');
+		Route::view('sign-up', 'sign-up')->name('sign-up');
 		Route::post('sign-up', 'register')->name('register');
 	});
 
 	Route::controller(SignInController::class)->group(function () {
 		Route::get('/', 'index')->name('sign-in');
-		Route::get('confirmation', 'verifyEmail')->name('confirmation');
+		Route::view('confirmation', 'auth.confirmation')->name('confirmation');
 		Route::post('sign-in', 'login')->name('login');
 	});
 });

@@ -15,7 +15,7 @@ class SignInRequest extends FormRequest
 	{
 		return [
 			'username'          => 'required|string|exists:users,username',
-			'password'          => 'required|string|exists:users,password',
+			'password'          => 'required|string',
 		];
 	}
 }

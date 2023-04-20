@@ -40,8 +40,14 @@
             </div>
             @enderror
         </div>
+        @error('login')
+        <div class="flex">
+            <img src="{{ URL::to('/') }}/assets/images/error-warning.svg">
+            <p class="font-inter font-normal text-[#CC1E1E] ml-2">{{ $message }}</p>
+        </div>
+        @enderror
         <div class="flex items-center flex-row-reverse justify-between mt-6 lg:justify-evenly">
-            <a href="#" class="font-inter font-semibold text-[#2029F3] lg:ml-16">Forgot password?</a>
+            <a href="{{route('forgot-password')}}" class="font-inter font-semibold text-[#2029F3] lg:ml-16">Forgot password?</a>
             <label for="checkbox" class="font-inter font-bold text-sm">Remember This device</label>
             <input 
             type="checkbox" 

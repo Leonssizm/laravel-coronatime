@@ -52,6 +52,7 @@
             <input 
             type="checkbox" 
             class="font-inter p-5"
+            name="remember"
             >
         </div>
         <div class="mt-6">

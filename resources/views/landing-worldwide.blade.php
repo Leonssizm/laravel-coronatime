@@ -13,5 +13,5 @@
     </div>
 </div>
 <div class="mt-10">
-    <x-statistics.worldwide-table/>
+    <x-statistics.worldwide-table :statistics='$statistics'/>
 </div>

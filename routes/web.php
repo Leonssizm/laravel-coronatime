@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CountryStatisticsController;
 use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\LogOutController;
@@ -57,3 +58,6 @@ Route::middleware('auth')->group(function () {
 		Route::post('logout', 'logout')->name('logout');
 	});
 });
+
+// WIP
+Route::get('/countries', [CountryStatisticsController::class, 'index']);

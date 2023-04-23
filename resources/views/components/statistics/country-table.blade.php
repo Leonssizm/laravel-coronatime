@@ -12,7 +12,7 @@
     </head>
 <body>
 <div class="relative max-w-xs">
-    <label for="hs-table-search" class="sr-only"> Search </label>
+    <label for="search" class="sr-only"> Search </label>
     <input
       type="search"
       name="search"

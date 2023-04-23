@@ -32,24 +32,23 @@ class FetchStatisticsData extends Command
 		foreach ($countries as $country) {
 			$allCountries = Http::post('https://devtest.ge/get-country-statistics', ['code' => $country['code']])->json();
 
-			$country = Statistic::where('location', $country['name']['en'])->first();
-			if (is_null($country)) {
-				Statistic::create([
-					'location'      => $allCountries['country'],
-					'deaths'        => $allCountries['deaths'],
-					'recovered'     => $allCountries['recovered'],
-					'critical'      => $allCountries['critical'],
-					'new_cases'     => $allCountries['confirmed'],
-				]);
-			} else {
-				$country->update([
-					'location'      => $allCountries['country'],
-					'deaths'        => $allCountries['deaths'],
-					'recovered'     => $allCountries['recovered'],
-					'critical'      => $allCountries['critical'],
-					'new_cases'     => $allCountries['confirmed'],
-				]);
+			$statistic = Statistic::where('location->en', $country['name']['en'])->first();
+
+			if (is_null($statistic)) {
+				$statistic = new Statistic;
 			}
+
+			$statistic->setTranslations('location', [
+				'en' => $country['name']['en'],
+				'ka' => $country['name']['ka'],
+			]);
+
+			$statistic->deaths = $allCountries['deaths'];
+			$statistic->recovered = $allCountries['recovered'];
+			$statistic->critical = $allCountries['critical'];
+			$statistic->new_cases = $allCountries['confirmed'];
+
+			$statistic->save();
 		}
 
 		return Command::SUCCESS;

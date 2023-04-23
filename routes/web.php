@@ -3,6 +3,7 @@
 use App\Http\Controllers\CountryStatisticsController;
 use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LogOutController;
 use App\Http\Controllers\SignInController;
 use App\Http\Controllers\SignUpController;
@@ -20,12 +21,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/change.locale/{locale}', [LanguageController::class, 'changeLocale'])->name('locale.change');
+
 Route::middleware('guest')->group(function () {
 	Route::controller(SignUpController::class)->group(function () {
 		Route::view('sign-up', 'sign-up')->name('sign-up');
 		Route::post('sign-up', 'register')->name('register');
 	});
-
 	Route::controller(SignInController::class)->group(function () {
 		Route::get('/', 'index')->name('sign-in');
 		Route::post('sign-in', 'login')->name('login');
@@ -42,7 +44,6 @@ Route::middleware('signed')->group(function () {
 	Route::controller(EmailVerificationController::class)->group(function () {
 		Route::get('email-verified', 'validateUser')->name('email-verified');
 	});
-
 	Route::controller(ForgotPasswordController::class)->group(function () {
 		Route::view('new-password', 'password.new-password')->name('new-password');
 		Route::post('new-password', 'changePassword')->name('change-password')->withoutMiddleware('signed');
@@ -57,7 +58,7 @@ Route::middleware('auth')->group(function () {
 	Route::controller(LogOutController::class)->group(function () {
 		Route::post('logout', 'logout')->name('logout');
 	});
+	Route::controller(CountryStatisticsController::class)->group(function () {
+		Route::get('countries', 'index')->name('countries');
+	});
 });
-
-// WIP
-Route::get('/countries', [CountryStatisticsController::class, 'index']);

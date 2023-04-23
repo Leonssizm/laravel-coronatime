@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="{{ URL::to('/') }}/assets/images/title-icon.svg" type="image/icon type">
         <title>Landing</title>
         @vite('resources/css/app.css')
         @vite('resources/js/app.js')
@@ -20,8 +21,8 @@
                           <img src="{{ URL::to('/') }}/assets/images/arrow-down.svg">
                         </button>
                         <div x-show="isOpen" class="absolute z-50 w-full mt-2 bg-white rounded-md shadow-lg">
-                          <a x-on:click="selectedOption = 'English'; isOpen = false" href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900">English</a>
-                          <a x-on:click="selectedOption = 'Georgian'; isOpen = false" href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900">Georgian</a>
+                          <a x-on:click="selectedOption = 'English'; isOpen = false" href="{{route('locale.change', 'en')}}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900">English</a>
+                          <a x-on:click="selectedOption = 'Georgian'; isOpen = false" href="{{route('locale.change', 'ka')}}"  class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900">Georgian</a>
                         </div>
                       </div>
                     </div>
@@ -33,7 +34,7 @@
                         <div class="border border-gray-200"></div>
                         <form action="{{ route('logout') }}" method="POST">
                           @csrf
-                          <button class="ml-2">Log Out</button>
+                          <button class="ml-2">{{__('statistics.log_out')}}</button>
                         </form>
                       </div>
                     
@@ -46,7 +47,7 @@
                         <div class="border border-gray-200"></div>
                         <form action="{{ route('logout') }}" method="POST">
                           @csrf
-                          <button class="mr-2">Log Out</button>
+                          <button class="mr-2">{{__('statistics.log_out')}}</button>
                         </form>
                       </div>
                     </div>

@@ -24,15 +24,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/change.locale/{locale}', [LanguageController::class, 'changeLocale'])->name('locale.change');
 
 Route::middleware('guest')->group(function () {
-	Route::controller(SignUpController::class)->group(function () {
-		Route::view('sign-up', 'sign-up')->name('sign-up');
-		Route::post('sign-up', 'register')->name('register');
-	});
-	Route::controller(SignInController::class)->group(function () {
-		Route::get('/', 'index')->name('sign-in');
-		Route::post('sign-in', 'login')->name('login');
-	});
+	Route::view('sign-up', [SignUpController::class, 'sign-up'])->name('sign-up');
+	Route::post('sign-up', [SignUpController::class, 'register'])->name('register');
+
+	Route::get('/', [SignInController::class, 'index'])->name('sign-in');
+	Route::post('sign-in', [SignInController::class, 'login'])->name('login');
+
 	Route::view('confirmation', 'auth.confirmation')->name('confirmation');
+
 	Route::controller(ForgotPasswordController::class)->group(function () {
 		Route::view('forgot-password', 'password.reset-password')->name('forgot-password');
 		Route::post('forgot-password', 'sendVerificationEmail')->name('password.email');
@@ -41,9 +40,8 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('signed')->group(function () {
-	Route::controller(EmailVerificationController::class)->group(function () {
-		Route::get('email-verified', 'validateUser')->name('email-verified');
-	});
+	Route::get('email-verified', [EmailVerificationController::class, 'validateUser'])->name('email-verified');
+
 	Route::controller(ForgotPasswordController::class)->group(function () {
 		Route::view('new-password', 'password.new-password')->name('new-password');
 		Route::post('new-password', 'changePassword')->name('change-password')->withoutMiddleware('signed');
@@ -52,13 +50,9 @@ Route::middleware('signed')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-	Route::controller(WorldWideStatisticsController::class)->group(function () {
-		Route::get('landing', 'index')->name('landing');
-	});
-	Route::controller(LogOutController::class)->group(function () {
-		Route::post('logout', 'logout')->name('logout');
-	});
-	Route::controller(CountryStatisticsController::class)->group(function () {
-		Route::get('countries', 'index')->name('countries');
-	});
+	Route::get('landing', [WorldWideStatisticsController::class, 'index'])->name('landing');
+
+	Route::post('logout', [LogOutController::class, 'logout'])->name('logout');
+
+	Route::get('countries', [CountryStatisticsController::class, 'index'])->name('countries');
 });

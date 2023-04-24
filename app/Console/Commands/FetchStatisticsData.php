@@ -32,23 +32,19 @@ class FetchStatisticsData extends Command
 		foreach ($countries as $country) {
 			$allCountries = Http::post('https://devtest.ge/get-country-statistics', ['code' => $country['code']])->json();
 
-			$statistic = Statistic::where('location->en', $country['name']['en'])->first();
-
-			if (is_null($statistic)) {
-				$statistic = new Statistic;
-			}
-
-			$statistic->setTranslations('location', [
-				'en' => $country['name']['en'],
-				'ka' => $country['name']['ka'],
-			]);
-
-			$statistic->deaths = $allCountries['deaths'];
-			$statistic->recovered = $allCountries['recovered'];
-			$statistic->critical = $allCountries['critical'];
-			$statistic->new_cases = $allCountries['confirmed'];
-
-			$statistic->save();
+			Statistic::updateOrCreate(
+				['location->en' => $country['name']['en']],
+				[
+					'location' => [
+						'en' => $country['name']['en'],
+						'ka' => $country['name']['ka'],
+					],
+					'deaths'    => $allCountries['deaths'],
+					'recovered' => $allCountries['recovered'],
+					'critical'  => $allCountries['critical'],
+					'new_cases' => $allCountries['confirmed'],
+				]
+			);
 		}
 
 		return Command::SUCCESS;

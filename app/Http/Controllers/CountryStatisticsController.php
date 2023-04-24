@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Statistic;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class CountryStatisticsController extends Controller
 {
@@ -12,7 +13,22 @@ class CountryStatisticsController extends Controller
 	{
 		return view('landing-country', [
 			'user'      => Auth::user(),
-			'statistics'=> Statistic::all(),
+			'statistics'=> Statistic::filter(request(['search']))->get(),
+		]);
+	}
+
+	public function sort(Request $request)
+	{
+		$sortBy = $request->query('sortBy', 'location');
+		$sortDirection = $request->query('sortDirection', 'asc');
+
+		$statistics = Statistic::orderBy($sortBy, $sortDirection);
+
+		return view('landing-country', [
+			'user'          => Auth::user(),
+			'statistics'    => $statistics->filter(request(['search']))->get(),
+			'sortBy'        => $sortBy,
+			'sortDirection' => $sortDirection,
 		]);
 	}
 }

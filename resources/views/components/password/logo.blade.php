@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="{{ URL::to('/') }}/assets/images/title-icon.svg" type="image/icon type">
         <title>Confirmation</title>
         @vite('resources/css/app.css')
     </head>

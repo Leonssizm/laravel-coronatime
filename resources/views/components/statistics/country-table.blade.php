@@ -4,13 +4,15 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="{{ URL::to('/') }}/assets/images/title-icon.svg" type="image/icon type">
+
         <title>Coronatime</title>
         @vite('resources/js/app.js')
         @vite('resources/css/app.css')
     </head>
 <body>
 <div class="relative max-w-xs">
-    <label for="hs-table-search" class="sr-only"> Search </label>
+    <label for="search" class="sr-only"> Search </label>
     <input
       type="search"
       name="search"
@@ -31,7 +33,7 @@
             <tr>
                 <th scope="col" class="px-2 lg:px-6 py-3">
                     <div class="flex">
-                        Location
+                        {{__('statistics.location')}}
                         <form class="flex flex-col ml-2">
                             <div x-data="{ isBlack: false }">
                                 <a href="#" x-on:click="isBlack = !isBlack">
@@ -52,7 +54,7 @@
                 </th>
                 <th scope="col" class="px-2 lg:px-6 py-3 lg:py-6">
                     <div class="flex">
-                        New Cases
+                        {{__('statistics.new_cases')}}
                         <form class="flex flex-col ml-2">
                             <div x-data="{ isBlack: false }">
                                 <a href="#" x-on:click="isBlack = !isBlack">
@@ -73,7 +75,7 @@
                 </th>
                 <th scope="col" class="px-2 lg:px-6 py-3 lg:py-6">
                     <div class="flex">
-                        Deaths
+                        {{__('statistics.death')}}
                         <form class="flex flex-col ml-2">
                             <div x-data="{ isBlack: false }">
                                 <a href="#" x-on:click="isBlack = !isBlack">
@@ -94,7 +96,7 @@
                 </th>
                 <th scope="col" class="px-2 lg:px-6 py-3 lg:py-6">
                     <div class="flex">
-                        Recovered
+                        {{__('statistics.recovered')}}
                         <form class="flex flex-col ml-2">
                             <div x-data="{ isBlack: false }">
                                 <a href="#" x-on:click="isBlack = !isBlack">
@@ -117,7 +119,7 @@
         <tbody>
             <tr class="bg-white border-b">
                 <th scope="row" class="px-2 lg:px-6 py-2 lg:py-4 font-normal">
-                   Worldwide
+                    {{__('statistics.worldwide')}}
                 </th>
                 <td class="px-2 lg:px-6 py-2 lg:py-4">
                     {{number_format($statistics->sum('new_cases'), '0', ' ')}}

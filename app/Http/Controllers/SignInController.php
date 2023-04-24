@@ -27,7 +27,7 @@ class SignInController extends Controller
 
 		if (!$user) {
 			return back()->withErrors([
-				'login' => 'Invalid login credentials',
+				'login' => __('validation.login'),
 			]);
 		}
 
@@ -40,7 +40,7 @@ class SignInController extends Controller
 			return redirect()->route('landing');
 		} else {
 			return back()->withErrors([
-				'login' => 'Invalid login credentials',
+				'login' => __('validation.login'),
 			]);
 		}
 	}

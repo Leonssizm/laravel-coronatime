@@ -8,7 +8,7 @@
         <div class="border border-black mt-4"></div>
         </div>
         <div>
-            <a href="{{route('countries')}}">{{__('statistics.by_country')}}</a>
+            <a href="{{route('landing-country.index')}}">{{__('statistics.by_country')}}</a>
         </div>
     </div>
 </div>

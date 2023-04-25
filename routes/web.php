@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\CountryStatisticsController;
 use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\LanguageController;
@@ -8,6 +7,7 @@ use App\Http\Controllers\LogOutController;
 use App\Http\Controllers\SignInController;
 use App\Http\Controllers\SignUpController;
 use App\Http\Controllers\WorldWideStatisticsController;
+use App\Http\Controllers\CountryStatisticsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -54,5 +54,6 @@ Route::middleware('auth')->group(function () {
 
 	Route::post('logout', [LogOutController::class, 'logout'])->name('logout');
 
-	Route::get('countries', [CountryStatisticsController::class, 'index'])->name('countries');
+	Route::get('landing-country', [CountryStatisticsController::class, 'index'])->name('landing-country.index');
+	Route::get('landing-country/sort', [CountryStatisticsController::class, 'sort'])->name('landing-country.sort');
 });

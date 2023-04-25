@@ -19,16 +19,14 @@ class CountryStatisticsController extends Controller
 
 	public function sort(Request $request)
 	{
-		$sortBy = $request->query('sortBy', 'location');
-		$sortDirection = $request->query('sortDirection', 'asc');
+		$sortBy = $request->sortBy ?? 'location';
+		$sortDirection = $request->sortDirection ?? 'asc';
 
 		$statistics = Statistic::orderBy($sortBy, $sortDirection);
 
 		return view('landing-country', [
 			'user'          => Auth::user(),
 			'statistics'    => $statistics->filter(request(['search']))->get(),
-			'sortBy'        => $sortBy,
-			'sortDirection' => $sortDirection,
 		]);
 	}
 }

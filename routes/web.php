@@ -1,11 +1,9 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\LanguageController;
-use App\Http\Controllers\LogOutController;
-use App\Http\Controllers\SignInController;
-use App\Http\Controllers\SignUpController;
 use App\Http\Controllers\WorldWideStatisticsController;
 use App\Http\Controllers\CountryStatisticsController;
 use Illuminate\Support\Facades\Route;
@@ -24,18 +22,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/change.locale/{locale}', [LanguageController::class, 'changeLocale'])->name('locale.change');
 
 Route::middleware('guest')->group(function () {
-	Route::view('sign-up', [SignUpController::class, 'sign-up'])->name('sign-up');
-	Route::post('sign-up', [SignUpController::class, 'register'])->name('register');
-
-	Route::get('/', [SignInController::class, 'index'])->name('sign-in');
-	Route::post('sign-in', [SignInController::class, 'login'])->name('login');
-
+	Route::view('/', 'sign-in')->name('sign-in');
+	Route::post('sign-up', [AuthController::class, 'register'])->name('register');
+	Route::post('sign-in', [AuthController::class, 'login'])->name('login');
+	Route::view('sign-up', [AuthController::class, 'sign-up'])->name('sign-up');
 	Route::view('confirmation', 'auth.confirmation')->name('confirmation');
 
 	Route::controller(ForgotPasswordController::class)->group(function () {
 		Route::view('forgot-password', 'password.reset-password')->name('forgot-password');
-		Route::post('forgot-password', 'sendVerificationEmail')->name('password.email');
 		Route::view('password-confirmation', 'password.password-confirmation')->name('password-confirmation');
+		Route::post('forgot-password', 'sendVerificationEmail')->name('password.email');
 	});
 });
 
@@ -44,16 +40,15 @@ Route::middleware('signed')->group(function () {
 
 	Route::controller(ForgotPasswordController::class)->group(function () {
 		Route::view('new-password', 'password.new-password')->name('new-password');
-		Route::post('new-password', 'changePassword')->name('change-password')->withoutMiddleware('signed');
 		Route::view('success', 'password.success')->name('success')->withoutMiddleware('signed');
+		Route::post('new-password', 'changePassword')->name('change-password')->withoutMiddleware('signed');
 	});
 });
 
 Route::middleware('auth')->group(function () {
+	Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+
 	Route::get('landing', [WorldWideStatisticsController::class, 'index'])->name('landing');
-
-	Route::post('logout', [LogOutController::class, 'logout'])->name('logout');
-
 	Route::get('landing-country', [CountryStatisticsController::class, 'index'])->name('landing-country.index');
 	Route::get('landing-country/sort', [CountryStatisticsController::class, 'sort'])->name('landing-country.sort');
 });

@@ -79,9 +79,13 @@ And now you should provide **.env** file all the necessary environment variables
 #
 **GMAIL SERVICE:**
 >MAIL_MAILER=smtp
+
 >MAIL_HOST=smtp.gmail.com
+
 >MAIL_PORT=465
+
 >MAIL_USERNAME=************
+
 >MAIL_PASSWORD=************
 
 
@@ -104,14 +108,6 @@ Which generates auth key.
 if you've completed getting started section, then migrating database if fairly simple process, just execute:
 ```sh
 php artisan migrate
-```
-
-#
-### Running feature tests
-App feature tests can be run by command:
-
-```sh
-php artisan test
 ```
 
 #

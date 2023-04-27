@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ChangePasswordRequest;
 use App\Mail\ResetPasswordMail;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
@@ -31,13 +32,11 @@ class ForgotPasswordController extends Controller
 		Mail::to($user->email)->send(new ResetPasswordMail($verificationUrl, $user));
 	}
 
-	public function changePassword(Request $request): RedirectResponse
+	public function changePassword(ChangePasswordRequest $request): RedirectResponse
 	{
-		$user = User::find($request->input('id'));
+		$user = User::find($request->id);
 
-		$newPassword = $request->validate(['password' => 'required|min:3|confirmed'])['password'];
-
-		$user->password = $newPassword;
+		$user->password = $request->validated()['password'];
 
 		$user->save();
 

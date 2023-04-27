@@ -14,8 +14,6 @@ class EmailVerificationController extends Controller
 			$user = User::find($request->id);
 			$user->markEmailAsVerified();
 			return view('auth.verify-email');
-		} else {
-			return view('auth.verify-email-problem');
 		}
 	}
 }

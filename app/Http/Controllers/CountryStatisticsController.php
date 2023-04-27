@@ -17,7 +17,7 @@ class CountryStatisticsController extends Controller
 		]);
 	}
 
-	public function sort(Request $request)
+	public function sort(Request $request): View
 	{
 		$sortBy = $request->sortBy ?? 'location';
 		$sortDirection = $request->sortDirection ?? 'asc';

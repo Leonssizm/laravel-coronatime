@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SignInRequest;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
 class SignInController extends Controller
@@ -14,7 +15,7 @@ class SignInController extends Controller
 		return view('sign-in');
 	}
 
-	public function login(SignInRequest $request)
+	public function login(SignInRequest $request): View | RedirectResponse
 	{
 		$user = null;
 		$fieldType = $this->getFieldType($request->username);
@@ -45,7 +46,7 @@ class SignInController extends Controller
 		}
 	}
 
-	public function getFieldType($input)
+	public function getFieldType($input): string
 	{
 		return filter_var($input, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 	}

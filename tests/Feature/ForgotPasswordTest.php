@@ -62,7 +62,7 @@ class ForgotPasswordTest extends TestCase
 
 		$user = User::factory()->create([
 			'email'    => $email,
-			'password' => $password,
+			'password' => bcrypt($password),
 		]);
 
 		$url = URL::temporarySignedRoute(
@@ -75,9 +75,9 @@ class ForgotPasswordTest extends TestCase
 
 		$response->assertStatus(200);
 
-		$newPassword = bcrypt('new_password');
+		$newPassword = 'new_password';
 
-		$response = $this->post(route('new-password'), [
+		$response = $this->post(route('change-password', $user->id), [
 			'id'                    => $user->id,
 			'password'              => $newPassword,
 			'password_confirmation' => $newPassword,

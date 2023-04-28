@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Http\Controllers\SignInController;
+use App\Http\Controllers\AuthController;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -129,7 +129,8 @@ class AuthTest extends TestCase
 
 	public function test_getFieldType_returns_email_or_username()
 	{
-		$controller = new SignInController();
+		$controller = new AuthController();
+
 		$this->assertEquals('email', $controller->getFieldType('test@example.com'));
 		$this->assertEquals('username', $controller->getFieldType('testuser'));
 	}

@@ -69,7 +69,7 @@ class AuthController extends Controller
 		return redirect()->route('sign-in');
 	}
 
-	private function getFieldType($input): string
+	public function getFieldType($input): string
 	{
 		return filter_var($input, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 	}

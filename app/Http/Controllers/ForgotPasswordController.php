@@ -32,13 +32,9 @@ class ForgotPasswordController extends Controller
 		Mail::to($user->email)->send(new ResetPasswordMail($verificationUrl, $user));
 	}
 
-	public function changePassword(ChangePasswordRequest $request): RedirectResponse
+	public function changePassword(ChangePasswordRequest $request, User $user): RedirectResponse
 	{
-		$user = User::find($request->id);
-
-		$user->password = $request->validated()['password'];
-
-		$user->save();
+		$user->update($request->validated());
 
 		return redirect()->route('success');
 	}

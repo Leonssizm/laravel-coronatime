@@ -41,7 +41,7 @@ Route::middleware('signed')->group(function () {
 	Route::controller(ForgotPasswordController::class)->group(function () {
 		Route::view('new-password', 'password.new-password')->name('new-password');
 		Route::view('success', 'password.success')->name('success')->withoutMiddleware('signed');
-		Route::post('new-password', 'changePassword')->name('change-password')->withoutMiddleware('signed');
+		Route::post('new-password/{user}', 'changePassword')->name('change-password')->withoutMiddleware('signed');
 	});
 });
 

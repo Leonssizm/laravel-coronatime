@@ -3,7 +3,7 @@
 <div class="flex justify-center">
     <h1 class="font-inter text-2xl font-black mt-10 lg:mt-36">{{__('login.reset_password')}}</h1>
 </div>
-<form class="ml-6 mt-10 lg:flex justify-center" method="POST" action='{{route('change-password')}}'>
+<form class="ml-6 mt-10 lg:flex justify-center" method="POST" action='{{route('change-password', request()->id)}}'>
     @csrf
     <div class="flex flex-col w-80 justify-between lg:w-96">
         <div class="flex flex-col mt-6">

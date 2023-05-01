@@ -103,5 +103,15 @@ class CountryStatisticsTest extends TestCase
 		$response = $this->get(route('landing-country.sort', ['sortBy' => 'location', 'sortDirection' => 'desc']));
 
 		$response->assertSeeInOrder([$canada->location, $brazil->location, $australia->location]);
+
+		session()->put('search', 'ra');
+
+		$response = $this->get(route('landing-country.sort', ['sortBy' => 'location', 'sortDirection' => 'desc']));
+
+		$searchTerm = session()->get('search');
+		$sortedStatistics = Statistic::filter(['search' => $searchTerm])->orderBy('location', 'asc')->get();
+
+		$this->assertEquals('Australia', $sortedStatistics[0]->location);
+		$this->assertEquals('Brazil', $sortedStatistics[1]->location);
 	}
 }

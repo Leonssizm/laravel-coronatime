@@ -20,7 +20,7 @@
             name="search"
             class="block w-full rounded-md border-gray-200 p-3 pl-10 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400"
             placeholder="Search..."
-            value="{{ request('search', '') }}"
+            value="{{ array_values(session()->get('search'))[0] ?? '' }}"
         />
         <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
             <img src="{{ URL::to('/') }}/assets/images/search.svg" alt="search by country">
@@ -127,7 +127,7 @@
                 </th>
             </tr>
         <tbody>
-            @if(request('search') == null)
+            @if(array_values(session()->get('search')) == null)
             <tr class="bg-white border-b">
                 <th scope="row" class="px-2 lg:px-6 py-2 lg:py-4 font-normal">
                     {{__('statistics.worldwide')}}
